@@ -11,7 +11,7 @@ namespace SmsAPI.Infrastructure
 
         }
 
-        DbSet<SMSResponses> SMSResponses { get; set; }
+        public DbSet<SMSResponse> SMSResponses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
