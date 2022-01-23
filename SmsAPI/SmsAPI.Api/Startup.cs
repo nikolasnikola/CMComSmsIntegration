@@ -1,18 +1,16 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using SmsAPI.Application.Queries;
 using SmsAPI.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using SmsAPI.Infrastructure.CMDotCom;
+using SmsAPI.Infrastructure.Options;
+using SmsAPI.Infrastructure.Repositories;
 
 namespace SmsAPI.Api
 {
@@ -38,6 +36,13 @@ namespace SmsAPI.Api
             var connectionString = Configuration.GetConnectionString("SMSApiContext");
             services.AddDbContext<SMSApiContext>(x => x.UseSqlServer(connectionString));
 
+            services.AddMediatR(typeof(Startup));
+
+            services.Configure<CMClientOptions>(Configuration.GetSection(nameof(CMClientOptions)));
+
+            services.AddScoped<ICmTextClient, CmTextClient>()
+                    .AddScoped<IUserQueries, UserQueries>()
+                    .AddScoped<ISMSResponseRepository, SMSResponseRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

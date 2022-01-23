@@ -5,14 +5,14 @@ using System;
 
 namespace SmsAPI.Infrastructure.EntityConfiguration
 {
-    public class SMSResponsesEntityTypeConfiguration : IEntityTypeConfiguration<SMSResponses>
+    public class SMSResponsesEntityTypeConfiguration : IEntityTypeConfiguration<SMSResponse>
     {
-        public void Configure(EntityTypeBuilder<SMSResponses> builder)
+        public void Configure(EntityTypeBuilder<SMSResponse> builder)
         {
             GuardBuilder(builder);
             builder.HasKey(c => c.Id);
         }
-        private static void GuardBuilder(EntityTypeBuilder<SMSResponses> builder)
+        private static void GuardBuilder(EntityTypeBuilder<SMSResponse> builder)
         {
             if (builder == null)
             {

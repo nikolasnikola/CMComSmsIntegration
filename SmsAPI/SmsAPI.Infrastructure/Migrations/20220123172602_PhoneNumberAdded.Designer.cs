@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmsAPI.Infrastructure;
 
 namespace SmsAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(SMSApiContext))]
-    partial class SMSApiContextModelSnapshot : ModelSnapshot
+    [Migration("20220123172602_PhoneNumberAdded")]
+    partial class PhoneNumberAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
