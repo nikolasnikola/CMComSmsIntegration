@@ -11,6 +11,10 @@ using SmsAPI.Infrastructure;
 using SmsAPI.Infrastructure.CMDotCom;
 using SmsAPI.Infrastructure.Options;
 using SmsAPI.Infrastructure.Repositories;
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading;
 
 namespace SmsAPI.Api
 {
@@ -36,7 +40,7 @@ namespace SmsAPI.Api
             var connectionString = Configuration.GetConnectionString("SMSApiContext");
             services.AddDbContext<SMSApiContext>(x => x.UseSqlServer(connectionString));
 
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(GetApplicationsAssemblies());
 
             services.Configure<CMClientOptions>(Configuration.GetSection(nameof(CMClientOptions)));
 
@@ -65,6 +69,14 @@ namespace SmsAPI.Api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static Assembly[] GetApplicationsAssemblies()
+        {
+            return AppDomain
+                .CurrentDomain
+                .GetAssemblies()
+                .Where(f => f.FullName.StartsWith("SmsAPI.Application", true, Thread.CurrentThread.CurrentCulture)).ToArray();
         }
     }
 }
