@@ -26,5 +26,10 @@ namespace SmsAPI.Infrastructure.Repositories
                 .AddRangeAsync(smsResponses, cancellationToken)
                 .ConfigureAwait(false);
         }
+
+        public async Task SaveChanges(CancellationToken cancellationToken)
+        {
+            await _context.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
     }
 }

@@ -63,6 +63,10 @@ namespace SmsAPI.Application.Commands
             await _smsResponseRepository
                 .AddSmsResponseRangeAsync(responses, cancellationToken)
                 .ConfigureAwait(false);
+
+            await _smsResponseRepository
+                .SaveChanges(cancellationToken)
+                .ConfigureAwait(false);
         }
 
     }

@@ -17,5 +17,12 @@ namespace SmsAPI.Infrastructure.Repositories
         /// <param name="cancellationToken">.</param>
         /// <returns>Task.</returns>
         Task AddSmsResponseRangeAsync(IEnumerable<SMSResponse> smsResponses, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Saves changes to db.
+        /// </summary>
+        /// <param name="cancellationToken">.</param>
+        /// <returns>Task.</returns>
+        Task SaveChanges(CancellationToken cancellationToken);
     }
 }
